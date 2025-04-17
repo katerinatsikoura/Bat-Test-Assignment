@@ -16,3 +16,14 @@ def test_calculate_bat_power():
 
     # Test with a negative level
     assert calculate_bat_power(-3) == -126
+
+@pytest.mark.parametrize("distance ,expected", [
+    (0, 100), 
+    (5, 50), 
+    (10, 0), 
+    (12, 0) # should not go below 0
+    ])
+
+def test_signal_strength(distance, expected):
+    assert signal_strength(distance) == expected
+
