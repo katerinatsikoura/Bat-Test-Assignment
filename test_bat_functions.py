@@ -1,7 +1,6 @@
 # test_bat_functions.py
 
 import pytest
-from unittest.mock import patch
 from bat_functions import calculate_bat_power, signal_strength, get_bat_vehicle, fetch_joker_info
 
 # Exercise 1: Basic tests for calculate_bat_power & parametrized tests for signal_strength
@@ -48,3 +47,23 @@ def test_get_bat_vehicle_unknown():
     # Test unknown vehicle
     with pytest.raises(ValueError, match="Unknown vehicle: Batplane"):
         get_bat_vehicle('Batplane')
+
+# Exercise 3: Mocking for fetch_joker_info
+
+def test_fetch_joker_info(mocker):
+    # Mock the time.sleep function to avoid the delay
+    mocker.patch("bat_functions.time.sleep", return_value=None)
+
+    # Mock fetch_joker_info to return a custom dictionary
+    mock_response = {'mischief_level': 0, 'location': 'captured'}
+    mock_fetch = mocker.patch("bat_functions.fetch_joker_info", return_value=mock_response)
+
+    # Call the function (returns the mocked data)
+    result = fetch_joker_info()
+
+     # Assert that the returned result is the mocked dictionary
+    assert result == {'mischief_level': 0, 'location': 'captured'}
+
+    # Verify fetch_joker_info was called exactly once
+    mock_fetch.assert_called_once()
+    
