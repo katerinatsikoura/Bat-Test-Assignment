@@ -56,7 +56,7 @@ def test_fetch_joker_info(mocker):
 
     # Mock fetch_joker_info to return a custom dictionary
     mock_response = {'mischief_level': 0, 'location': 'captured'}
-    mock_fetch = mocker.patch("bat_functions.fetch_joker_info", return_value=mock_response)
+    mock_fetch = mocker.patch("test_bat_functions.fetch_joker_info", return_value=mock_response)
 
     # Call the function (returns the mocked data)
     result = fetch_joker_info()
